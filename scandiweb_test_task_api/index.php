@@ -1,3 +1,7 @@
+<?php
+    require_once 'api/post/read.php';
+    ?>
+
 <!doctype html>
 <html lang="en">
 <head>
