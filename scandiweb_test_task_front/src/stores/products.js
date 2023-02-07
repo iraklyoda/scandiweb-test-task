@@ -25,10 +25,25 @@ export const useProductsStore = defineStore("products", () => {
       uniqueError.value = "";
       router.push({ name: "productList" });
     } catch (e) {
-      if(e.response.status === 422) {
+      if (e.response.status === 422) {
         uniqueError.value = "SKU value must be unique";
       }
       console.log(e);
+    }
+  };
+
+  const deleteProducts = async () => {
+    if (selectedProducts.value) {
+      try {
+        const response = await axios.post(
+          import.meta.env.VITE_APP_ROOT_API + "/product/delete.php",
+          { id: selectedProducts.value }
+        );
+        selectedProducts.value = [];
+        getProducts();
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
@@ -38,6 +53,7 @@ export const useProductsStore = defineStore("products", () => {
     selectedProducts,
     getProducts,
     createProduct,
+    deleteProducts,
     uniqueError,
   };
 });

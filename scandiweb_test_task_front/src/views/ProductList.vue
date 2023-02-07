@@ -5,8 +5,8 @@
     >
       <h1>Product List</h1>
       <div class="flex gap-4 lg:mr-12">
-        <router-link :to="{ name: 'addProduct' }">Add</router-link>
-        <ButtonComponent button="MASS DELETE" id="delete-product-btn" />
+        <router-link :to="{ name: 'addProduct' }" id="ADD">ADD</router-link>
+        <ButtonComponent button="MASS DELETE" id="delete-product-btn" @click="productsStore.deleteProducts()"/>
       </div>
     </nav>
     <main class="mx-12 mt-4 lg:mx-28">

@@ -1,17 +1,17 @@
 <template>
-  <header>
-    <nav
-      class="mx-12 mt-8 flex justify-between border-b-2 border-black pb-5 lg:mx-28"
-    >
-      <h1>Product Add</h1>
-      <div class="mr-12 flex gap-4">
-        <ButtonComponent button="Save" />
-        <router-link :to="{ name: 'productList' }">Cancel</router-link>
-      </div>
-    </nav>
-  </header>
-  <main class="mx-12 mt-4 lg:mx-28">
-    <Form id="product_form" @submit="onSubmit">
+  <Form id="product_form" @submit="onSubmit">
+    <header>
+      <nav
+        class="mx-12 mt-8 flex justify-between border-b-2 border-black pb-5 lg:mx-28"
+      >
+        <h1>Product Add</h1>
+        <div class="mr-12 flex gap-4">
+          <ButtonComponent button="Save" />
+          <router-link :to="{ name: 'productList' }">Cancel</router-link>
+        </div>
+      </nav>
+    </header>
+    <main class="mx-12 mt-4 lg:mx-28">
       <BaseInput id="sku" name="SKU" label="SKU" rules="required|min:3" />
       <p v-if="productsStore.uniqueError" class="text-red-500">
         {{ productsStore.uniqueError }}
@@ -50,7 +50,7 @@
       <div v-if="type === 'book'">
         <BaseInput
           type="number"
-          id="size"
+          id="weight"
           name="attribute"
           label="Weight (KG)"
           rules="required|integer"
@@ -81,9 +81,8 @@
         />
         <span class="text-sm text-gray-600">Please provide dimensions</span>
       </div>
-      <BaseButton button="Submit" class="mt-12" />
-    </Form>
-  </main>
+    </main>
+  </Form>
 </template>
 <script setup>
 import { ref, reactive } from "vue";

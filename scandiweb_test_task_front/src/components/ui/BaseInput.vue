@@ -7,6 +7,7 @@
         :type="type"
         :name="name"
         :rules="rules"
+        :id="id"
         class="w-full rounded-md border-2 border-black pl-2 lg:w-auto"
       />
     </div>

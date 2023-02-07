@@ -5,7 +5,9 @@
   >
     <input
       type="checkbox"
+      id="delete-checkbox"
       class="delete-checkbox ml-4 mt-4"
+      v-model="selected"
       @change="selectProduct(id)"
     />
     <section class="text-center text-lg lg:mt-4 lg:text-2xl">
@@ -19,10 +21,10 @@
 
 <script setup>
 import { useProductsStore } from "@/stores/products";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 const productsStore = useProductsStore();
 const selected = ref(false);
-defineProps(["id", "sku", "name", "price", "attribute", "value", "unit"]);
+const props = defineProps(["id", "sku", "name", "price", "attribute", "value", "unit"]);
 
 function selectProduct(id) {
   if (!productsStore.selectedProducts.includes(id)) {
@@ -33,6 +35,14 @@ function selectProduct(id) {
     productsStore.selectedProducts.splice(index.value, 1);
     selected.value = false;
   }
-  console.log(productsStore.selectedProducts);
 }
+
+onMounted(() => {
+  if (productsStore.selectedProducts.includes(props.id)) {
+    selected.value = true;
+  } else {
+    selected.value = false;
+  }
+})
+
 </script>
