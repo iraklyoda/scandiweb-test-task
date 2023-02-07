@@ -1,11 +1,12 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import axios from "axios";
-
 import App from "./App.vue";
 import router from "./router";
 
 import "./assets/main.css";
+import "@/config/vee-validate/rules.js";
+import "@/config/vee-validate/messages.js";
+
 import ButtonComponent from "@/components/ui/BaseButton.vue";
 
 const app = createApp(App);

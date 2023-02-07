@@ -1,41 +1,43 @@
 <?php
-    // Headers
-    header('Access-Control-Allow-Origin: *');
-    header('Content-Type: application/json');
 
-    include_once "../../config/Database.php";
-    include_once "../../models/Product.php";
+// Headers
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
 
-    // Instantiate DB & connect
-    $database = new Database();
-    $db = $database->connect();
+include_once "../../config/Database.php";
+include_once "../../models/Product.php";
 
-    // Instantiate blog post object
-    $product = new Product($db);
+// Instantiate DB & connect
+$database = new Database();
+$db       = $database->connect();
 
-    // Blog post query
+// Instantiate blog post object
+$product = new ProductCollection($db);
+
+// Blog post query
 $result = $product->read();
-$num = $result->rowCount();
+$num    = $result->rowCount();
 
-var_dump($result->fetch(PDO::FETCH_ASSOC));
-
-if($num > 0) {
-    $products_arr = array();
+if ($num > 0) {
+    $products_arr         = array();
     $products_arr['data'] = array();
 
-    while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $product_item           = array(
-            'SKU' => $SKU,
-            'name' => $name,
-            'price' => $price,
+            'id'        => $id,
+            'SKU'       => $SKU,
+            'name'      => $name,
+            'price'     => $price,
             'attribute' => $attribute,
-            'value' => $value,
-            'unit' => $unit,
+            'value'     => $value,
+            'unit'      => $unit,
         );
         $products_arr['data'][] = $product_item;
-        echo json_encode($posts_arr);
     }
+    echo json_encode($products_arr);
+} else {
+    echo json_encode(["msg" => "No products"]);
 }
 
 // Che
