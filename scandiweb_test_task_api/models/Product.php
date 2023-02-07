@@ -87,6 +87,31 @@ abstract class Product
             }
         }
     }
+
+    // Delete Product
+    public function delete() {
+        // Create query
+        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind Data
+        $stmt->bindParam(':id', $this->id);
+
+        try {
+            $stmt->execute();
+            echo json_encode(
+                array('msg' => 'Product Deleted')
+            );
+            http_response_code(200);
+        } catch (PDOException $e) {
+                http_response_code(422);
+                echo json_encode(
+                    array('msg' => 'Product Not Deleted')
+                );
+            }
+    }
 }
 
 class ProductCollection extends Product
@@ -99,7 +124,6 @@ class ProductCollection extends Product
         $stmt  = $this->conn->prepare ($query);
         // Execute query
         $stmt->execute ();
-
         return $stmt;
     }
 }
