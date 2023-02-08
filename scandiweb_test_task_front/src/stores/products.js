@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import axios from "axios";
+import axiosInstance from "@/config/axios/index.js";
 import router from "@/router";
 
 export const useProductsStore = defineStore("products", () => {
@@ -17,7 +18,7 @@ export const useProductsStore = defineStore("products", () => {
 
   const createProduct = async (data, type) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         import.meta.env.VITE_APP_ROOT_API + "/product/create_" + type + ".php",
         data
       );
@@ -35,7 +36,7 @@ export const useProductsStore = defineStore("products", () => {
   const deleteProducts = async () => {
     if (selectedProducts.value) {
       try {
-        const response = await axios.post(
+        const response = await axiosInstance.post(
           import.meta.env.VITE_APP_ROOT_API + "/product/delete.php",
           { id: selectedProducts.value }
         );

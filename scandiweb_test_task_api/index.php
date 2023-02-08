@@ -1,7 +1,3 @@
-<?php
-    require_once 'api/post/read.php';
-    ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-<h1>Hey</h1>
+<h1>Hey <?php echo "hey" . getenv("ORIGIN") ?></h1>
 </body>
 </html>
