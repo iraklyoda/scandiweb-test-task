@@ -9,7 +9,7 @@ export const useProductsStore = defineStore("products", () => {
   const selectedProducts = ref([]);
   const uniqueError = ref("");
   const getProducts = async () => {
-    const response = await axiosInstance.get(
+    const response = await axios.get(
       import.meta.env.VITE_APP_ROOT_API + "/product/read.php"
     );
     products.value = response.data.data;
@@ -18,7 +18,7 @@ export const useProductsStore = defineStore("products", () => {
 
   const createProduct = async (data, type) => {
     try {
-      const response = await axiosInstance.post(
+      const response = await axios.post(
         import.meta.env.VITE_APP_ROOT_API + "/product/create_" + type + ".php",
         data
       );
@@ -36,7 +36,7 @@ export const useProductsStore = defineStore("products", () => {
   const deleteProducts = async () => {
     if (selectedProducts.value) {
       try {
-        const response = await axiosInstance.post(
+        const response = await axios.post(
           import.meta.env.VITE_APP_ROOT_API + "/product/delete.php",
           { id: selectedProducts.value }
         );
