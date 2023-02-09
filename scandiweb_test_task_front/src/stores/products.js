@@ -9,7 +9,7 @@ export const useProductsStore = defineStore("products", () => {
   const selectedProducts = ref([]);
   const uniqueError = ref("");
   const getProducts = async () => {
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       import.meta.env.VITE_APP_ROOT_API + "/product/read.php"
     );
     products.value = response.data.data;
