@@ -44,7 +44,6 @@
           name="attribute"
           label="Size (MB)"
           rules="required"
-          v-model="value"
         />
         <span class="text-sm text-gray-600">Please provide size</span>
       </div>
@@ -55,7 +54,6 @@
           name="attribute"
           label="Weight (KG)"
           rules="required|integer"
-          v-model="value"
         />
         <span class="text-sm text-gray-600">Please provide weight</span>
       </div>
@@ -104,7 +102,11 @@ function onSubmit(values) {
     name: values.name,
     price: values.price,
     type: type.value,
+    height: values.height,
+    width: values.width,
+    length: values.length,
   });
+  console.log(data);
   if (type.value === "Furniture") {
     data.value = values.height + "x" + values.width + "x" + values.length;
   } else {

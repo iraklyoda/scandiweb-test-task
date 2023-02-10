@@ -145,4 +145,11 @@ class Book extends Product
 class Furniture extends Product
 {
     public $attribute = "Dimension";
+    public function setValues($data)
+    {
+        $this->SKU   = $data->SKU;
+        $this->name  = $data->name;
+        $this->price = $data->price;
+        $this->value = $data->height . "x" . $data->width . "x" . $data->length;
+    }
 }
