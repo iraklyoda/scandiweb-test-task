@@ -13,7 +13,6 @@ export const useProductsStore = defineStore("products", () => {
       import.meta.env.VITE_APP_ROOT_API + "/product/read.php"
     );
     products.value = response.data.data;
-    console.log(response.data);
   };
 
   const createProduct = async (data) => {

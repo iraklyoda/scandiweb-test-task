@@ -44,6 +44,7 @@
           name="attribute"
           label="Size (MB)"
           rules="required"
+          v-model="value"
         />
         <span class="text-sm text-gray-600">Please provide size</span>
       </div>
@@ -54,6 +55,7 @@
           name="attribute"
           label="Weight (KG)"
           rules="required|integer"
+          v-model="value"
         />
         <span class="text-sm text-gray-600">Please provide weight</span>
       </div>
@@ -86,7 +88,7 @@
 </template>
 <script setup>
 import { ref, reactive } from "vue";
-import { Form, Field } from "vee-validate";
+import { Form } from "vee-validate";
 import { useProductsStore } from "@/stores/products";
 
 import ButtonComponent from "@/components/ui/BaseButton.vue";
@@ -94,6 +96,7 @@ import BaseInput from "@/components/ui/BaseInput.vue";
 
 const productsStore = useProductsStore();
 const type = ref("DVD");
+const value = ref("");
 
 function onSubmit(values) {
   console.log(values);
@@ -101,8 +104,12 @@ function onSubmit(values) {
     SKU: values.SKU,
     name: values.name,
     price: values.price,
-    type: type.value
   });
+  if (type.value === "furniture") {
+    data.value = values.height + "x" + values.width + "x" + values.length;
+  } else {
+    data.value = values.attribute;
+  }
   productsStore.createProduct(data);
 }
 </script>

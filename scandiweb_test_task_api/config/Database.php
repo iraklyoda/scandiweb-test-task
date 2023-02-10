@@ -69,15 +69,9 @@ class Database
     /**
      * @param  mixed  $host
      */
-    public function set_host(mixed $host): void
-    {
-        $this->host = $host;
-    }
 
     public function connect()
     {
-        $this->set_host(null);
-
         try {
             $this->conn = new PDO(
                 'mysql:host=' . $this->get_host() . ';dbname='
