@@ -16,10 +16,10 @@ export const useProductsStore = defineStore("products", () => {
     console.log(response.data);
   };
 
-  const createProduct = async (data, type) => {
+  const createProduct = async (data) => {
     try {
       const response = await axios.post(
-        import.meta.env.VITE_APP_ROOT_API + "/product/create_" + type + ".php",
+        import.meta.env.VITE_APP_ROOT_API + "/product/create_product.php",
         data
       );
       getProducts();

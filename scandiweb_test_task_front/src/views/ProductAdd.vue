@@ -33,8 +33,8 @@
           class="rounded-md px-2"
         >
           <option value="DVD" id="DVD">DVD</option>
-          <option value="book" id="Book">Book</option>
-          <option value="furniture" id="Furniture">Furniture</option>
+          <option value="Book" id="Book">Book</option>
+          <option value="Furniture" id="Furniture">Furniture</option>
         </select>
       </div>
       <div v-if="type === 'DVD'">
@@ -47,7 +47,7 @@
         />
         <span class="text-sm text-gray-600">Please provide size</span>
       </div>
-      <div v-if="type === 'book'">
+      <div v-if="type === 'Book'">
         <BaseInput
           type="number"
           id="weight"
@@ -57,7 +57,7 @@
         />
         <span class="text-sm text-gray-600">Please provide weight</span>
       </div>
-      <div v-if="type === 'furniture'">
+      <div v-if="type === 'Furniture'">
         <BaseInput
           type="number"
           id="height"
@@ -86,27 +86,23 @@
 </template>
 <script setup>
 import { ref, reactive } from "vue";
-import { Form } from "vee-validate";
+import { Form, Field } from "vee-validate";
 import { useProductsStore } from "@/stores/products";
 
 import ButtonComponent from "@/components/ui/BaseButton.vue";
 import BaseInput from "@/components/ui/BaseInput.vue";
-import BaseButton from "@/components/ui/BaseButton.vue";
 
 const productsStore = useProductsStore();
 const type = ref("DVD");
 
 function onSubmit(values) {
+  console.log(values);
   const data = reactive({
     SKU: values.SKU,
     name: values.name,
     price: values.price,
+    type: type.value
   });
-  if (type.value === "furniture") {
-    data.value = values.height + "x" + values.width + "x" + values.length;
-  } else {
-    data.value = values.attribute;
-  }
-  productsStore.createProduct(data, type.value);
+  productsStore.createProduct(data);
 }
 </script>

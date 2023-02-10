@@ -3,7 +3,9 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-class Database {
+
+class Database
+{
 
     // DB Params
     private $cleardb_url;
@@ -12,7 +14,6 @@ class Database {
     private $username;
     private $password;
     private $conn;
-
 
 
     // DB Connect
@@ -25,25 +26,72 @@ class Database {
      */
     public function __construct(
         array $cleardb_url,
-    ) {
+    ){
         $this->cleardb_url = $cleardb_url;
-        $this->host     = $cleardb_url["host"];
-        $this->db_name  = substr($cleardb_url["path"],1);
-        $this->username = $cleardb_url["user"];
-        $this->password = $cleardb_url["pass"];
+        $this->host        = $cleardb_url["host"];
+        $this->db_name     = substr($cleardb_url["path"], 1);
+        $this->username    = $cleardb_url["user"];
+        $this->password    = $cleardb_url["pass"];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function get_host(): mixed
+    {
+        return $this->host;
+    }
+
+    /**
+     * @return string
+     */
+    public function get_db_name(): string
+    {
+        return $this->db_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function get_username(): mixed
+    {
+        return $this->username;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function get_password(): mixed
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param  mixed  $host
+     */
+    public function set_host(mixed $host): void
+    {
+        $this->host = $host;
     }
 
     public function connect()
     {
-        $this->conn = null;
+        $this->set_host(null);
 
         try {
-            $this->conn = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name,
-                $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }   catch(PDOException $e) {
+            $this->conn = new PDO(
+                'mysql:host=' . $this->get_host() . ';dbname='
+                . $this->get_db_name(),
+                $this->get_username(), $this->get_password()
+            );
+            $this->conn->setAttribute(
+                PDO::ATTR_ERRMODE,
+                PDO::ERRMODE_EXCEPTION
+            );
+        } catch (PDOException $e) {
             echo 'Connection Error: ' . $e->getMessage();
         }
+
         return $this->conn;
     }
 }

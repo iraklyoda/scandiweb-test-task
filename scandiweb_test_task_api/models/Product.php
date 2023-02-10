@@ -35,8 +35,8 @@ abstract class Product
 
     public function setValues($data)
     {
-        $this->SKU = $data->SKU;
-        $this->name = $data->name;
+        $this->SKU   = $data->SKU;
+        $this->name  = $data->name;
         $this->price = $data->price;
         $this->value = $data->value;
     }
@@ -44,7 +44,7 @@ abstract class Product
     public function create()
     {
         // Create query
-        $query = 'INSERT INTO ' . $this->get_table () . ' 
+        $query = 'INSERT INTO ' . $this->get_table() . ' 
           SET
             SKU = :SKU,
             name = :name,
@@ -52,14 +52,14 @@ abstract class Product
             attribute = :attribute,
             value = :value,
             unit = :unit';
-        $stmt = $this->conn->prepare($query);
+        $stmt  = $this->conn->prepare($query);
 
-        $this->SKU = htmlspecialchars (strip_tags ($this->SKU));
-        $this->name = htmlspecialchars (strip_tags ($this->name));
-        $this->price = htmlspecialchars (strip_tags ($this->price));
-        $this->attribute = htmlspecialchars (strip_tags ($this->attribute));
-        $this->value = htmlspecialchars (strip_tags ($this->value));
-        $this->unit = $this->unit ?? "";
+        $this->SKU       = htmlspecialchars(strip_tags($this->SKU));
+        $this->name      = htmlspecialchars(strip_tags($this->name));
+        $this->price     = htmlspecialchars(strip_tags($this->price));
+        $this->attribute = htmlspecialchars(strip_tags($this->attribute));
+        $this->value     = htmlspecialchars(strip_tags($this->value));
+        $this->unit      = $this->unit ?? "";
 
         // Bind Data
         $stmt->bindParam(':SKU', $this->SKU);
@@ -76,7 +76,7 @@ abstract class Product
             );
             http_response_code(201);
         } catch (PDOException $e) {
-            if(str_contains($e, '1062 Duplicate entry')) {
+            if (str_contains($e, '1062 Duplicate entry')) {
                 http_response_code(422);
                 echo json_encode(
                     array('msg' => 'Duplicate Sku')
@@ -90,7 +90,8 @@ abstract class Product
     }
 
     // Delete Product
-    public function delete() {
+    public function delete()
+    {
         // Create query
         $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
 
@@ -107,11 +108,11 @@ abstract class Product
             );
             http_response_code(200);
         } catch (PDOException $e) {
-                http_response_code(422);
-                echo json_encode(
-                    array('msg' => 'Product Not Deleted')
-                );
-            }
+            http_response_code(422);
+            echo json_encode(
+                array('msg' => 'Product Not Deleted')
+            );
+        }
     }
 }
 
@@ -121,10 +122,10 @@ class ProductCollection extends Product
     public function read()
     {
         // Create query
-        $query = 'SELECT * FROM ' . $this->get_table () . ' ORDER BY id DESC;';
-        $stmt  = $this->conn->prepare ($query);
+        $query = 'SELECT * FROM ' . $this->get_table() . ' ORDER BY id DESC;';
+        $stmt  = $this->conn->prepare($query);
         // Execute query
-        $stmt->execute ();
+        $stmt->execute();
         return $stmt;
     }
 }
