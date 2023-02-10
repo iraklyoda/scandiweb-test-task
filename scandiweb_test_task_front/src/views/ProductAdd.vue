@@ -106,12 +106,6 @@ function onSubmit(values) {
     width: values.width,
     length: values.length,
   });
-  console.log(data);
-  if (type.value === "Furniture") {
-    data.value = values.height + "x" + values.width + "x" + values.length;
-  } else {
-    data.value = values.attribute;
-  }
   productsStore.createProduct(data);
 }
 </script>
