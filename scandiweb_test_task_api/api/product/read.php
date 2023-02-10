@@ -1,14 +1,16 @@
 <?php
 
 // Headers
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: https://scandiweb-test-task-yoda.netlify.app');
 header('Content-Type: application/json');
+header('Access-Control-Allow-Credentials: true');
+
 
 include_once "../../config/Database.php";
 include_once "../../models/Product.php";
 
 // Instantiate DB & connect
-$database = new Database();
+$database = new Database(parse_url(getenv("CLEARDB_DATABASE_URL")));
 $db       = $database->connect();
 
 // Instantiate blog post object

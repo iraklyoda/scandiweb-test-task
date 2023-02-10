@@ -27,7 +27,7 @@ include_once "../../config/Database.php";
 include_once "../../models/Product.php";
 
 // Instantiate DB & connect
-$database = new Database();
+$database = new Database(parse_url(getenv("CLEARDB_DATABASE_URL")));
 $db       = $database->connect();
 
 // Instantiate dvd product
