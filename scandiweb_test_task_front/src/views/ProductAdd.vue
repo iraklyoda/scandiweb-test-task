@@ -103,6 +103,7 @@ function onSubmit(values) {
     SKU: values.SKU,
     name: values.name,
     price: values.price,
+    type: type.value,
   });
   if (type.value === "Furniture") {
     data.value = values.height + "x" + values.width + "x" + values.length;

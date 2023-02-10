@@ -6,11 +6,11 @@ require "headers.php";
 $database = new Database(parse_url(getenv("CLEARDB_DATABASE_URL")));
 $db       = $database->connect();
 
-// Instantiate book product
-$product = new Book($db);
-
 // Get posted data
 $data = json_decode(file_get_contents("php://input"));
+
+$product = null;
+
 if ($data->type === "DVD") {
     $product = new DVD($db);
 }
@@ -20,5 +20,8 @@ if ($data->type === "Book") {
 if ($data->type === "Furniture") {
     $product = new Furniture($db);
 }
-$product->setValues($data);
-$product->create();
+
+if ($product ?? null) {
+    $product->setValues($data);
+    $product->create();
+}
