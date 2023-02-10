@@ -101,6 +101,7 @@ function onSubmit(values) {
     SKU: values.SKU,
     name: values.name,
     price: values.price,
+    value: values.attribute,
     type: type.value,
     height: values.height,
     width: values.width,
