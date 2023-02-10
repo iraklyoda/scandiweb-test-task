@@ -9,8 +9,6 @@ $db       = $database->connect();
 // Get posted data
 $data = json_decode(file_get_contents("php://input"));
 
-$product = null;
-
 if ($data->type === "DVD") {
     $product = new DVD($db);
 }
