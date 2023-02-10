@@ -96,7 +96,6 @@ import BaseInput from "@/components/ui/BaseInput.vue";
 
 const productsStore = useProductsStore();
 const type = ref("DVD");
-const value = ref("");
 
 function onSubmit(values) {
   console.log(values);
@@ -105,7 +104,7 @@ function onSubmit(values) {
     name: values.name,
     price: values.price,
   });
-  if (type.value === "furniture") {
+  if (type.value === "Furniture") {
     data.value = values.height + "x" + values.width + "x" + values.length;
   } else {
     data.value = values.attribute;
