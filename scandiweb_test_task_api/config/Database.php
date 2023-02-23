@@ -6,14 +6,20 @@ error_reporting(E_ALL);
 
 class Database
 {
-
-    // DB Params
-    private $cleardb_url;
-    private $host;
-    private $db_name;
-    private $username;
-    private $password;
+    // Db Params
+    private $host = 'localhost';
+    private $db_name = 'scandiweb_products';
+    private $username = 'root';
+    private $password = '123';
     private $conn;
+
+    // DB Params Production
+//    private $cleardb_url;
+//    private $host;
+//    private $db_name;
+//    private $username;
+//    private $password;
+//    private $conn;
 
 
     // DB Connect
@@ -24,20 +30,22 @@ class Database
      * @param  string  $username
      * @param  string  $password
      */
-    public function __construct(
-        array $cleardb_url,
-    ){
-        $this->cleardb_url = $cleardb_url;
-        $this->host        = $cleardb_url["host"];
-        $this->db_name     = substr($cleardb_url["path"], 1);
-        $this->username    = $cleardb_url["user"];
-        $this->password    = $cleardb_url["pass"];
-    }
+
+    /* For Production */
+//    public function __construct(
+//        array $cleardb_url,
+//    ){
+//        $this->cleardb_url = $cleardb_url;
+//        $this->host        = $cleardb_url["host"];
+//        $this->db_name     = substr($cleardb_url["path"], 1);
+//        $this->username    = $cleardb_url["user"];
+//        $this->password    = $cleardb_url["pass"];
+//    }
 
     /**
      * @return mixed
      */
-    public function get_host(): mixed
+    public function getHost(): mixed
     {
         return $this->host;
     }
@@ -45,7 +53,7 @@ class Database
     /**
      * @return string
      */
-    public function get_db_name(): string
+    public function getDbname(): string
     {
         return $this->db_name;
     }
@@ -53,7 +61,7 @@ class Database
     /**
      * @return mixed
      */
-    public function get_username(): mixed
+    public function getUsername(): mixed
     {
         return $this->username;
     }
@@ -61,7 +69,7 @@ class Database
     /**
      * @return mixed
      */
-    public function get_password(): mixed
+    public function getPassword(): mixed
     {
         return $this->password;
     }
@@ -74,9 +82,9 @@ class Database
     {
         try {
             $this->conn = new PDO(
-                'mysql:host=' . $this->get_host() . ';dbname='
-                . $this->get_db_name(),
-                $this->get_username(), $this->get_password()
+                'mysql:host=' . $this->getHost() . ';dbname='
+                . $this->getDbname(),
+                $this->getUsername(), $this->getPassword()
             );
             $this->conn->setAttribute(
                 PDO::ATTR_ERRMODE,
