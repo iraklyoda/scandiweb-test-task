@@ -3,7 +3,8 @@
 require "headers.php";
 
 // Instantiate DB & connect
-$database = new Database(parse_url(getenv("CLEARDB_DATABASE_URL")));
+$database = new Database();
+//$database = new Database(parse_url(getenv("CLEARDB_DATABASE_URL")));
 $db       = $database->connect();
 
 // Get posted data

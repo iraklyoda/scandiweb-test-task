@@ -2,7 +2,7 @@
 
 // Headers
 header(
-    'Access-Control-Allow-Origin: https://scandiweb-test-task-yoda.netlify.app'
+    'Access-Control-Allow-Origin: *'
 );
 header('Content-Type: application/json');
 header('Access-Control-Allow-Credentials: true');
